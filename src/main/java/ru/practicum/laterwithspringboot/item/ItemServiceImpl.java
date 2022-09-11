@@ -2,6 +2,10 @@ package ru.practicum.laterwithspringboot.item;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.practicum.laterwithspringboot.exception.ItemNotFoundException;
+import ru.practicum.laterwithspringboot.exception.UserNotFoundException;
+import ru.practicum.laterwithspringboot.user.User;
+import ru.practicum.laterwithspringboot.user.UserRepository;
 
 import java.util.List;
 
@@ -9,19 +13,38 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ItemServiceImpl implements ItemService {
     private final ItemRepository itemRepository;
+    private final UserRepository userRepository;
 
     @Override
     public List<Item> getAllItems(long userId) {
-        return itemRepository.findByUserId(userId);
+        User user = userRepository.findById(userId).orElseThrow(() -> {
+            throw new UserNotFoundException(userId);
+        });
+        return itemRepository.findAllByUser(user);
     }
 
     @Override
-    public Item saveItem(long userId, Item item) {
+    public Item saveItem(Long userId, ItemCreateDto itemCreateDto) {
+        User user = userRepository.findById(userId).orElseThrow(() -> {
+            throw new UserNotFoundException(userId);
+        });
+        Item item = ItemMapper.toItem(itemCreateDto, user);
         return itemRepository.save(item);
     }
 
     @Override
-    public void removeItem(long userId, long id) {
-        itemRepository.removeByUserIdAndItemId(userId, id);
+    public Item getItemById(long userId, long itemId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> {
+            throw new UserNotFoundException(userId);
+        });
+        return itemRepository.findByIdAndUser(itemId, user).orElseThrow(() -> {
+            throw new ItemNotFoundException(itemId);
+        });
+    }
+
+    @Override
+    public void removeItem(long userId, long itemId) {
+        Item item = getItemById(userId, itemId);
+        itemRepository.delete(item);
     }
 }
