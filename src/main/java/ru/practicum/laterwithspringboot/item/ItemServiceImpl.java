@@ -29,7 +29,7 @@ public class ItemServiceImpl implements ItemService {
             throw new UserNotFoundException(userId);
         });
         Item item = ItemMapper.toItem(itemCreateDto, user);
-        return itemRepository.save(item);
+        return itemRepository.saveItemAfterCheckUrl(item);
     }
 
     @Override
