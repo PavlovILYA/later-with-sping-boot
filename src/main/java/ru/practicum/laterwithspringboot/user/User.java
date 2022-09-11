@@ -1,5 +1,6 @@
 package ru.practicum.laterwithspringboot.user;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.practicum.laterwithspringboot.item.Item;
