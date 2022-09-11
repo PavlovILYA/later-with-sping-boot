@@ -14,5 +14,13 @@ CREATE TABLE IF NOT EXISTS items (
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
+
+DELETE FROM items;
+DELETE FROM users;
+
+ALTER TABLE items ALTER COLUMN id RESTART WITH 1;
+ALTER TABLE users ALTER COLUMN id RESTART WITH 1;
+
+
 -- drop table items;
 -- drop table users;
