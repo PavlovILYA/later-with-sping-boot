@@ -8,6 +8,8 @@ import ru.practicum.laterwithspringboot.item.ItemMapper;
 import ru.practicum.laterwithspringboot.item.model.Item;
 import ru.practicum.laterwithspringboot.item.model.ItemCreateDto;
 import ru.practicum.laterwithspringboot.item.repository.ItemRepository;
+import ru.practicum.laterwithspringboot.urlmetadata.model.UrlMetadata;
+import ru.practicum.laterwithspringboot.urlmetadata.service.UrlMetadataRetriever;
 import ru.practicum.laterwithspringboot.user.model.User;
 import ru.practicum.laterwithspringboot.user.repository.UserRepository;
 
@@ -18,6 +20,7 @@ import java.util.List;
 public class ItemServiceImpl implements ItemService {
     private final ItemRepository itemRepository;
     private final UserRepository userRepository;
+    private final UrlMetadataRetriever urlMetadataRetriever;
 
     @Override
     public List<Item> getAllItems(long userId) {
@@ -32,7 +35,8 @@ public class ItemServiceImpl implements ItemService {
         User user = userRepository.findById(userId).orElseThrow(() -> {
             throw new UserNotFoundException(userId);
         });
-        Item item = ItemMapper.toItem(itemCreateDto, user);
+        UrlMetadata urlMetadata = urlMetadataRetriever.retrieve(itemCreateDto.getUrl());
+        Item item = ItemMapper.toItem(itemCreateDto, user, urlMetadata);
         return itemRepository.saveItemAfterCheckUrl(item);
     }
 

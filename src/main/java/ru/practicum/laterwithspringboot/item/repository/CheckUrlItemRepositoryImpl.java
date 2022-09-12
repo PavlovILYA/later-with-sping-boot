@@ -22,20 +22,20 @@ public class CheckUrlItemRepositoryImpl implements CheckUrlItemRepository {
     @Override
     public Item saveItemAfterCheckUrl(Item item) {
         HttpStatus status;
-        if (urlStatusCache.get(item.getUrl()) != null) {
-            status = urlStatusCache.get(item.getUrl());
+        if (urlStatusCache.get(item.getResolvedUrl()) != null) {
+            status = urlStatusCache.get(item.getResolvedUrl());
         } else {
             try {
-                ResponseEntity<String> response = restTemplate.getForEntity(item.getUrl(), String.class);
+                ResponseEntity<String> response = restTemplate.getForEntity(item.getResolvedUrl(), String.class);
                 status = response.getStatusCode();
-                urlStatusCache.put(item.getUrl(), status);
+                urlStatusCache.put(item.getResolvedUrl(), status);
             } catch (Exception e) {
                 throw new InactiveUrlException(e.getMessage());
             }
         }
 
         if (status != HttpStatus.OK && status != HttpStatus.MOVED_PERMANENTLY) {
-            throw new InactiveUrlException(item.getUrl(), status);
+            throw new InactiveUrlException(item.getResolvedUrl(), status);
         }
         return itemRepository.save(item);
     }
