@@ -1,11 +1,15 @@
-package ru.practicum.laterwithspringboot.item;
+package ru.practicum.laterwithspringboot.item.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.practicum.laterwithspringboot.exception.ItemNotFoundException;
 import ru.practicum.laterwithspringboot.exception.UserNotFoundException;
-import ru.practicum.laterwithspringboot.user.User;
-import ru.practicum.laterwithspringboot.user.UserRepository;
+import ru.practicum.laterwithspringboot.item.ItemMapper;
+import ru.practicum.laterwithspringboot.item.model.Item;
+import ru.practicum.laterwithspringboot.item.model.ItemCreateDto;
+import ru.practicum.laterwithspringboot.item.repository.ItemRepository;
+import ru.practicum.laterwithspringboot.user.model.User;
+import ru.practicum.laterwithspringboot.user.repository.UserRepository;
 
 import java.util.List;
 

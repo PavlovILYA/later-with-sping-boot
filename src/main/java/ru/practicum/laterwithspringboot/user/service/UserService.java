@@ -1,4 +1,6 @@
-package ru.practicum.laterwithspringboot.user;
+package ru.practicum.laterwithspringboot.user.service;
+
+import ru.practicum.laterwithspringboot.user.model.User;
 
 import java.util.List;
 

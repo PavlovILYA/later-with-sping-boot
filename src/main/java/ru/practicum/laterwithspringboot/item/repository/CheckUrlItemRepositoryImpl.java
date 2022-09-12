@@ -1,10 +1,11 @@
-package ru.practicum.laterwithspringboot.item;
+package ru.practicum.laterwithspringboot.item.repository;
 
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import ru.practicum.laterwithspringboot.exception.InactiveUrlException;
+import ru.practicum.laterwithspringboot.item.model.Item;
 
 import java.util.HashMap;
 import java.util.Map;

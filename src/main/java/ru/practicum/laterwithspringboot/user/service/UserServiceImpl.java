@@ -1,8 +1,10 @@
-package ru.practicum.laterwithspringboot.user;
+package ru.practicum.laterwithspringboot.user.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.practicum.laterwithspringboot.exception.UserNotFoundException;
+import ru.practicum.laterwithspringboot.user.model.User;
+import ru.practicum.laterwithspringboot.user.repository.UserRepository;
 
 import java.util.List;
 

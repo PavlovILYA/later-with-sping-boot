@@ -10,6 +10,8 @@ CREATE TABLE IF NOT EXISTS items (
     id BIGINT GENERATED ALWAYS AS IDENTITY,
     user_id BIGINT,
     url TEXT,
+    description TEXT,
+    created_time TIMESTAMP,
     PRIMARY KEY (id),
     FOREIGN KEY (user_id) REFERENCES users(id)
 );

@@ -1,9 +1,8 @@
-package ru.practicum.laterwithspringboot.user;
+package ru.practicum.laterwithspringboot.user.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.practicum.laterwithspringboot.item.Item;
+import ru.practicum.laterwithspringboot.item.model.Item;
 
 import javax.persistence.*;
 import java.util.ArrayList;

@@ -1,4 +1,7 @@
-package ru.practicum.laterwithspringboot.item;
+package ru.practicum.laterwithspringboot.item.service;
+
+import ru.practicum.laterwithspringboot.item.model.Item;
+import ru.practicum.laterwithspringboot.item.model.ItemCreateDto;
 
 import java.util.List;
 
