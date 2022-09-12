@@ -25,12 +25,16 @@ public class CheckUrlItemRepositoryImpl implements CheckUrlItemRepository {
         if (urlStatusCache.get(item.getUrl()) != null) {
             status = urlStatusCache.get(item.getUrl());
         } else {
-            ResponseEntity<String> response = restTemplate.getForEntity(item.getUrl(), String.class);
-            status = response.getStatusCode();
-            urlStatusCache.put(item.getUrl(), status);
+            try {
+                ResponseEntity<String> response = restTemplate.getForEntity(item.getUrl(), String.class);
+                status = response.getStatusCode();
+                urlStatusCache.put(item.getUrl(), status);
+            } catch (Exception e) {
+                throw new InactiveUrlException(e.getMessage());
+            }
         }
 
-        if (status != HttpStatus.OK) {
+        if (status != HttpStatus.OK && status != HttpStatus.MOVED_PERMANENTLY) {
             throw new InactiveUrlException(item.getUrl(), status);
         }
         return itemRepository.save(item);

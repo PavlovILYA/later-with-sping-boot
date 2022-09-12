@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import ru.practicum.laterwithspringboot.user.model.User;
+import ru.practicum.laterwithspringboot.user.model.UserCreateDto;
 import ru.practicum.laterwithspringboot.user.service.UserService;
 
 import javax.persistence.EntityManager;
@@ -29,21 +30,21 @@ public class UserServiceTest {
 
     @Test
     public void checkSaveUser() {
-        User user = makeUser("some@email.com", "Пётр Иванов");
-        userService.saveUser(user);
+        UserCreateDto userCreateDto = makeUser("some@email.com", "Пётр Иванов");
+        userService.saveUser(userCreateDto);
 
         TypedQuery<User> query = em.createQuery("Select u from User u where u.email = :email", User.class);
-        User userFromDb = query.setParameter("email", user.getEmail()).getSingleResult();
+        User userFromDb = query.setParameter("email", userCreateDto.getEmail()).getSingleResult();
 
         assertThat(userFromDb.getId(), notNullValue());
-        assertThat(userFromDb.getName(), equalTo(user.getName()));
-        assertThat(userFromDb.getEmail(), equalTo(user.getEmail()));
+        assertThat(userFromDb.getName(), equalTo(userCreateDto.getName()));
+        assertThat(userFromDb.getEmail(), equalTo(userCreateDto.getEmail()));
     }
 
     @Test
     public void checkGetAllUsers() {
-        User user1 = makeUser("some1@email.com", "Пётр Иванов");
-        User user2 = makeUser("some2@email.com", "Иван Петров");
+        UserCreateDto user1 = makeUser("some1@email.com", "Пётр Иванов");
+        UserCreateDto user2 = makeUser("some2@email.com", "Иван Петров");
 
         userService.saveUser(user1);
         userService.saveUser(user2);
@@ -61,10 +62,10 @@ public class UserServiceTest {
 
     }
 
-    private User makeUser(String email, String name) {
-        User user = new User();
-        user.setEmail(email);
-        user.setName(name);
-        return user;
+    private UserCreateDto makeUser(String email, String name) {
+        UserCreateDto userCreateDto = new UserCreateDto();
+        userCreateDto.setEmail(email);
+        userCreateDto.setName(name);
+        return userCreateDto;
     }
 }

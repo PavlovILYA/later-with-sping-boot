@@ -8,6 +8,8 @@ import ru.practicum.laterwithspringboot.user.model.User;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @Entity
@@ -24,6 +26,10 @@ public class Item {
     private User user;
     private String url;
     private String description;
+    @ElementCollection
+    @CollectionTable(name = "tags", joinColumns = @JoinColumn(name = "item_id"))
+    @Column(name = "name")
+    private Set<String> tags = new HashSet<>();
     @Column(name = "created_time")
     private LocalDateTime createdTime;
 }

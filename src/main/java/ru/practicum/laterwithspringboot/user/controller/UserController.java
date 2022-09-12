@@ -2,6 +2,7 @@ package ru.practicum.laterwithspringboot.user.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import ru.practicum.laterwithspringboot.user.model.UserCreateDto;
 import ru.practicum.laterwithspringboot.user.service.UserService;
 import ru.practicum.laterwithspringboot.user.model.User;
 
@@ -19,8 +20,8 @@ public class UserController {
     }
 
     @PostMapping
-    public User saveNewUser(@RequestBody User user) {
-        return userService.saveUser(user);
+    public User saveNewUser(@RequestBody UserCreateDto userCreateDto) {
+        return userService.saveUser(userCreateDto);
     }
 
     @GetMapping("/{userId}")

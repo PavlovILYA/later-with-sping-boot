@@ -3,7 +3,9 @@ package ru.practicum.laterwithspringboot.user.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.practicum.laterwithspringboot.exception.UserNotFoundException;
+import ru.practicum.laterwithspringboot.user.UserMapper;
 import ru.practicum.laterwithspringboot.user.model.User;
+import ru.practicum.laterwithspringboot.user.model.UserCreateDto;
 import ru.practicum.laterwithspringboot.user.repository.UserRepository;
 
 import java.util.List;
@@ -19,7 +21,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User saveUser(User user) {
+    public User saveUser(UserCreateDto userCreateDto) {
+        User user = UserMapper.toItem(userCreateDto);
         return userRepository.save(user);
     }
 

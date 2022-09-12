@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import ru.practicum.laterwithspringboot.item.model.Item;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +19,8 @@ public class User {
     Long id;
     String email;
     String name;
+    @Column(name = "registration_date")
+    LocalDate registrationDate;
     @OneToMany(mappedBy = "user")
     List<Item> items = new ArrayList<>();
 }

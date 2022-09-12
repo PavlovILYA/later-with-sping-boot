@@ -12,6 +12,7 @@ public class ItemMapper {
         item.setUrl(itemCreateDto.getUrl());
         item.setDescription(itemCreateDto.getDescription());
         item.setCreatedTime(LocalDateTime.now());
+        item.setTags(itemCreateDto.getTags());
         item.setUser(user);
         return item;
     }

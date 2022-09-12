@@ -19,7 +19,7 @@ public class JsonItemTest {
 
     @Test
     public void checkCreateDto () throws IOException {
-        ItemCreateDto itemCreateDto = new ItemCreateDto("https://ya.ru", "Yandex - search system");
+        ItemCreateDto itemCreateDto = new ItemCreateDto("https://ya.ru", "Yandex - search system", null);
 
         JsonContent<ItemCreateDto> result = jacksonTester.write(itemCreateDto);
 
