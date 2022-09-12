@@ -2,9 +2,8 @@ package ru.practicum.laterwithspringboot.item.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import ru.practicum.laterwithspringboot.item.model.*;
 import ru.practicum.laterwithspringboot.item.service.ItemService;
-import ru.practicum.laterwithspringboot.item.model.Item;
-import ru.practicum.laterwithspringboot.item.model.ItemCreateDto;
 
 import java.util.List;
 
@@ -15,8 +14,18 @@ public class ItemController {
     private final ItemService itemService;
 
     @GetMapping
-    public List<Item> getAllItems(@RequestHeader("X-Later-User-Id") Long userId) {
-        return itemService.getAllItems(userId);
+    public List<Item> getAllItems(@RequestHeader("X-Later-User-Id") Long userId,
+                                  @RequestParam(defaultValue = "ALL") GetItemRequestDto.ContentType contentType,
+                                  @RequestParam(defaultValue = "NEWEST") GetItemRequestDto.SortType sort,
+                                  @RequestParam(defaultValue = "10") int limit,
+                                  @RequestParam(required = false) List<String> tags) {
+        return itemService.getAllItems(GetItemRequestDto.builder()
+                .userId(userId)
+                .contentType(contentType)
+                .sort(sort)
+                .limit(limit)
+                .tags(tags)
+                .build());
     }
 
     @PostMapping
