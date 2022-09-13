@@ -9,6 +9,7 @@ import java.util.List;
 public interface ItemService {
     List<Item> getAllItems(GetItemRequestDto getItemRequestDto);
     Item saveItem(Long userId, ItemCreateDto itemCreateDto);
+    Item updateItem(Long itemId, Long userId, ItemCreateDto itemCreateDto);
     Item getItemById(long userId, long itemId);
     void removeItem(long userId, long id);
 }

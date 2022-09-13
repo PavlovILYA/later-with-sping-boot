@@ -69,6 +69,14 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
+    public Item updateItem(Long itemId, Long userId, ItemCreateDto itemCreateDto) {
+        Item item = getItemById(userId, itemId);
+        UrlMetadata urlMetadata = urlMetadataRetriever.retrieve(itemCreateDto.getUrl());
+        item = ItemMapper.updateItem(item, itemCreateDto, urlMetadata);
+        return itemRepository.save(item);
+    }
+
+    @Override
     public Item getItemById(long userId, long itemId) {
         User user = userRepository.findById(userId).orElseThrow(() -> {
             throw new UserNotFoundException(userId);
@@ -96,9 +104,9 @@ public class ItemServiceImpl implements ItemService {
     private Sort makeOrderByClause(GetItemRequestDto.SortType sort) {
         switch (sort) {
             case TITLE: return Sort.by("title").ascending();
-            case OLDEST: return Sort.by("dateResolved").ascending();
+            case OLDEST: return Sort.by("resolvedDate").ascending();
             case NEWEST:
-            default: return Sort.by("dateResolved").descending();
+            default: return Sort.by("resolvedDate").descending();
         }
     }
 }

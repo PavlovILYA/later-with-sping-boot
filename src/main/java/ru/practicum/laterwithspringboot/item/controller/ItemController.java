@@ -28,6 +28,13 @@ public class ItemController {
                 .build());
     }
 
+    @PatchMapping("/{itemId}")
+    public Item updateItem(@RequestHeader("X-Later-User-Id") Long userId,
+                           @PathVariable("itemId") Long id,
+                           @RequestBody ItemCreateDto itemCreateDto) {
+        return itemService.updateItem(id, userId, itemCreateDto);
+    }
+
     @PostMapping
     public Item saveItem(@RequestHeader("X-Later-User-Id") Long userId,
                          @RequestBody ItemCreateDto itemCreateDto) {

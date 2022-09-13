@@ -22,4 +22,18 @@ public class ItemMapper {
                 .resolvedDate(urlMetadata.getResolvedDate())
                 .build();
     }
+
+    public static Item updateItem(Item item, ItemCreateDto itemCreateDto, UrlMetadata urlMetadata) {
+        return item.toBuilder()
+                .description(itemCreateDto.getDescription())
+                .tags(itemCreateDto.getTags())
+                .normalUrl(urlMetadata.getNormalUrl())
+                .resolvedUrl(urlMetadata.getResolvedUrl())
+                .mimeType(urlMetadata.getMimeType())
+                .title(urlMetadata.getTitle())
+                .hasImage(urlMetadata.isHasImage())
+                .hasVideo(urlMetadata.isHasVideo())
+                .resolvedDate(urlMetadata.getResolvedDate())
+                .build();
+    }
 }

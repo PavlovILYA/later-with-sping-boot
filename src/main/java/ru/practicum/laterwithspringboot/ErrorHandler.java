@@ -1,6 +1,7 @@
 package ru.practicum.laterwithspringboot;
 
 import lombok.extern.slf4j.Slf4j;
+import org.postgresql.util.PSQLException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -24,7 +25,7 @@ public class ErrorHandler {
         return new ErrorResponse(LocalDateTime.now(), HttpStatus.NOT_FOUND.value(), e.getMessage());
     }
 
-    @ExceptionHandler({ItemRetrieverException.class})
+    @ExceptionHandler({ItemRetrieverException.class, PSQLException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse handle400(Exception e) {
         log.error("{} {}", HttpStatus.BAD_REQUEST.value(), e.getMessage());
